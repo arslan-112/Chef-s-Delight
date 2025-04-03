@@ -2,24 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import '../models/recipe.dart';
-import 'add_recipe_screen.dart'; // Commented out since not yet defined
+import 'add_recipe_screen.dart';
 // import 'recipe_detail_screen.dart'; // Commented out since not yet defined
 import '../widgets/recipe_card.dart';
+import '../widgets/custom_appbar.dart';
+import 'package:flutter/services.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Hide the status bar
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      appBar: AppBar(
-        backgroundColor: Color(0xF7F19090),
-        title: Text(
-          "Chef's Book",
-
-          style: TextStyle(fontFamily: "PinkSweats", fontSize: 30),
-        ),
-        centerTitle: true,
-      ),
+      appBar: CustomAppBar(title: "Chef's Book"),
       body: ValueListenableBuilder<Box<Recipe>>(
         valueListenable: Hive.box<Recipe>('recipes').listenable(),
         builder: (context, box, _) {
@@ -44,20 +51,16 @@ class HomeScreen extends StatelessWidget {
               // Hot Right Now Section
               SizedBox(),
               Container(
-                color: Color(0xF7d683ba),
+                color: Color(0xFFF5F5F5),
                 child: Padding(
-
-                  padding: const EdgeInsets.all(10.0),
-                  child: Center (
-                      child: Text(
-                        "Hot Right Now 🔥",
-
-                        style: TextStyle(fontFamily: "QuiteMagical", fontSize: 30, color: Colors.white),
-                      ) ,
-                  )
-
+                  padding: const EdgeInsets.fromLTRB(8,14,8,0),
+                  child: Center(
+                    child: Text(
+                      "Hot Right Now 🔥",
+                      style: TextStyle(fontFamily: "QuiteMagical", fontSize: 32, color: Colors.black87),
+                    ),
+                  ),
                 ),
-
               ),
 
               Container(
@@ -88,15 +91,15 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      color: Color(0xCDA50180),
+                      color: Color(0xFFF5F5F5),
                       child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: Text(
-                              category,
-                              style: TextStyle(fontFamily: "QuiteMagical", fontSize: 30, color: Colors.white),
-                            ),
-                          )
+                        padding: const EdgeInsets.fromLTRB(8,12,8,0),
+                        child: Center(
+                          child: Text(
+                            category,
+                            style: TextStyle(fontFamily: "QuiteMagical", fontSize: 35, color: Colors.black87),
+                          ),
+                        ),
                       ),
                     ),
 
@@ -132,6 +135,9 @@ class HomeScreen extends StatelessWidget {
             MaterialPageRoute(builder: (context) => AddRecipeScreen()),
           );
         },
+        backgroundColor: Color(0xFFFFFEFE),
+        foregroundColor: Colors.black,
+        shape: CircleBorder(),
         child: Icon(Icons.add),
       ),
     );

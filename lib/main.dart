@@ -46,7 +46,7 @@ void addPredefinedRecipes(Box<Recipe> recipeBox) {
     ),
     Recipe(
       title: 'Chicken Biryani',
-      imagePath: 'assets/images/Biryani.jpg',
+      imagePath: 'assets/images/biryani.jpg',
       ingredients:
           'Oil/Ghee, Onions, Bone-in, cut up, skinless chicken, Whole spices,Garlic + Ginger,Tomatoes,Yogurt,Rice',
       instructions:
@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Recipe App',
+      title: 'Chef\'s Book ',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
       home: HomeScreen(),
