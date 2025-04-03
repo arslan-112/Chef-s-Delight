@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import '../models/recipe.dart';
 
 class RecipeCard extends StatelessWidget {
@@ -12,14 +13,13 @@ class RecipeCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        //color: Color(0xFFFFF0F5),
         margin: EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: Color(0xF7FFE3E3),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: Colors.grey,
               spreadRadius: 2,
               blurRadius: 5,
               offset: Offset(0, 3), // Shadow effect
@@ -35,12 +35,7 @@ class RecipeCard extends StatelessWidget {
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
-              child: Image.asset(
-                recipe.imagePath,
-                width: 150, // Fixed width for the image
-                height: 100, // Fixed height for the image
-                fit: BoxFit.cover,
-              ),
+              child: _buildImage(recipe.imagePath),
             ),
 
             // Title and Category
@@ -57,7 +52,7 @@ class RecipeCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        fontFamily: "JosefinSans", // Ensure this font is defined
+                        fontFamily: "JosefinSans",
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -71,7 +66,7 @@ class RecipeCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey[800],
-                        fontFamily: "JosefinSans", // Ensure this font is defined
+                        fontFamily: "JosefinSans",
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -83,5 +78,26 @@ class RecipeCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // method to handle both asset and file images
+  Widget _buildImage(String imagePath) {
+    if (imagePath.startsWith('assets/')) {
+      // Asset image
+      return Image.asset(
+        imagePath,
+        width: 150,
+        height: 100,
+        fit: BoxFit.cover,
+      );
+    } else {
+      // File image (from local storage)
+      return Image.file(
+        File(imagePath),
+        width: 150,
+        height: 100,
+        fit: BoxFit.cover,
+      );
+    }
   }
 }
