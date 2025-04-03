@@ -78,7 +78,7 @@ void addPredefinedRecipes(Box<Recipe> recipeBox) {
       imagePath: 'assets/images/tacos.webp',
       ingredients: 'Tortillas, Meat, Lettuce, Cheese',
       instructions:
-          '1.. Place the ground beef in a skillet with olive oil.'
+          '1. Place the ground beef in a skillet with olive oil.'
           '2. Brown the beef with olive oil and then drain any fat.'
           '3. Add the spices along with the tomato paste and water (or tomato sauce)'
           '4. Bring the mixture to a simmer and then cook for a few more minutes until the sauce thickens.',

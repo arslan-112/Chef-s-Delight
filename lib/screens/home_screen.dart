@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import '../models/recipe.dart';
-// import 'add_recipe_screen.dart'; // Commented out since not yet defined
+import 'add_recipe_screen.dart'; // Commented out since not yet defined
 // import 'recipe_detail_screen.dart'; // Commented out since not yet defined
 import '../widgets/recipe_card.dart';
 
@@ -30,8 +30,13 @@ class HomeScreen extends StatelessWidget {
 
           // Group recipes by category
           final Map<String, List<Recipe>> categorizedRecipes = {};
+
           for (var recipe in recipes) {
-            categorizedRecipes.putIfAbsent(recipe.category, () => []).add(recipe);
+            String category = recipe.category.trim().toLowerCase(); // Normalize category name
+            if (!categorizedRecipes.containsKey(category)) {
+              categorizedRecipes[category] = [];
+            }
+            categorizedRecipes[category]!.add(recipe);
           }
 
           return ListView(
@@ -122,10 +127,10 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => AddRecipeScreen()),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddRecipeScreen()),
+          );
         },
         child: Icon(Icons.add),
       ),
